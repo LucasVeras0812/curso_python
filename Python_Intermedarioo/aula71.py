@@ -1,27 +1,21 @@
-"""
-args - Argumentos não nomeados
-* - *args (empacotamento e desempacotamento)
-"""
-# x,y, *resto = 1,2,3,4
-# print(x,y,resto)
 
-# def soma (x,y):
-#     return x + y
+x = 1
 
-def soma(*args):
-    total = 0
-    for numero in args:
-        total += numero
-        return total
 
-soma_1_2_3 = soma(1, 2 ,3)
-# print(soma_1_2_3)
+def escopo():
+    global x
+    x = 10
 
-soma_4_5_6 = soma(4, 5, 6)
-# print(soma_4_5_6)
+    def outra_funcao():
+        x = 11
+        y = 2
+        print(x,y)
 
-numeros = 1,2,3,54,6,45
+    outra_funcao()
+    print(x)
 
-print(num((numeros)))
-
-# print(sum((1,2,3,4,5,6,7,8,9,0)))
+print(x)
+escopo()
+print(x)
+print(x)
+print(x)
