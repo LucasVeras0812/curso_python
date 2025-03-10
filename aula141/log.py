@@ -17,8 +17,7 @@ class LogFileMixin(Log):
 
 class LogPrintMixin(Log):
     def _log(self, msg):
-        print(f'{msg} ({self.__class__.__name__})') 
-
+        print(f'{msg} ({self.__class__.__name__})')
 
 if __name__ == '__main__':
     l = LogFileMixin()
