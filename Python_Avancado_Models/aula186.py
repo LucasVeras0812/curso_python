@@ -1,47 +1,47 @@
-# Enviando E-mails SMTP com Python
+# ZIP - Compactando / Descompactando arquivos com zipfile.ZipFile
 import os
-import pathlib
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-from string import Template
+import shutil
+from pathlib import Path
+from zipfile import ZipFile
 
-from dotenv import load_dotenv  # type: ignore
+# Caminhos
+CAMINHO_RAIZ = Path(__file__).parent
+CAMINHO_ZIP_DIR = CAMINHO_RAIZ / 'aula_186_diretorio_zip'
+CAMINHO_COMPACTADO = CAMINHO_RAIZ / 'aula186_compactado.zip'
+CAMINHO_DESCOMPACTADO = CAMINHO_RAIZ / 'aula186_descompactado'
 
-load_dotenv()
+shutil.rmtree(CAMINHO_ZIP_DIR, ignore_errors=True)
+Path.unlink(CAMINHO_COMPACTADO, missing_ok=True)
+shutil.rmtree(str(CAMINHO_COMPACTADO).replace('.zip', ''), ignore_errors=True)
+shutil.rmtree(CAMINHO_DESCOMPACTADO, ignore_errors=True)
 
-# Caminho arquivo HTML
-CAMINHO_HTML = pathlib.Path(__file__).parent / 'aula185.html'
+# raise Exception()
 
-# Dados do remetente e destinatário
-remetente = os.getenv('FROM_EMAIL', '')
-destinatario = remetente
+# Cria o diretório para a aula
+CAMINHO_ZIP_DIR.mkdir(exist_ok=True)
 
-# Configurações SMTP
-smtp_server = 'smtp.gmail.com'
-smtp_port = 587
-smtp_username = os.getenv('FROM_EMAIL', '')
-smtp_password = os.getenv('EMAIL_PASSWORD', '')
 
-# Mensagem de texto
-with open(CAMINHO_HTML, 'r') as arquivo:
-    texto_arquivo = arquivo.read()
-    template = Template(texto_arquivo)
-    texto_email = template.substitute(nome='Helena')
+def criar_arquivos(qtd: int, zip_dir: Path):
+    for i in range(qtd):
+        texto = 'arquivo_%s' % i
+        with open(zip_dir / f'{texto}.txt', 'w') as arquivo:
+            arquivo.write(texto)
 
-# Transformar nossa mensagem em MIMEMultipart
-mime_multipart = MIMEMultipart()
-mime_multipart['from'] = remetente
-mime_multipart['to'] = destinatario
-mime_multipart['subject'] = 'Este é o assunto do e-mail'
 
-corpo_email = MIMEText(texto_email, 'html', 'utf-8')
-mime_multipart.attach(corpo_email)
+criar_arquivos(10, CAMINHO_ZIP_DIR)
 
-# Envia o e-mail
-with smtplib.SMTP(smtp_server, smtp_port) as server:
-    server.ehlo()
-    server.starttls()
-    server.login(smtp_username, smtp_password)
-    server.send_message(mime_multipart)
-    print('E-mail enviado com  sucesso!')
+# Criando um zip e adicionando arquivos
+with ZipFile(CAMINHO_COMPACTADO, 'w') as zip:
+    for root, dirs, files in os.walk(CAMINHO_ZIP_DIR):
+        for file in files:
+            # print(file)
+            zip.write(os.path.join(root, file), file)
+
+# Lendo arquivos de um zip
+with ZipFile(CAMINHO_COMPACTADO, 'r') as zip:
+    for arquivo in zip.namelist():
+        print(arquivo)
+
+# Extraindo arquivos de um zip
+with ZipFile(CAMINHO_COMPACTADO, 'r') as zip:
+    zip.extractall(CAMINHO_DESCOMPACTADO)
