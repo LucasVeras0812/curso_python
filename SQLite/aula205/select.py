@@ -26,3 +26,5 @@ print(_id, name, weight)
 
 cursor.close()
 connection.close()
+
+print()
