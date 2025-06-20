@@ -13,9 +13,3 @@ with open(CAMINHO_ARQUIVO, 'r') as arquivo:
     print(p1.nome, p1.idade)
     print(p2.nome, p2.idade)
     print(p3.nome, p3.idade)
-
-
-    
-
-
-
