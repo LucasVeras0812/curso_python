@@ -19,4 +19,3 @@ leao = Animal(nome= 'Leão')
 print(leao.nome)
 # print(leao.comendo('maça'))
 print(leao.executar('maça'))
-

@@ -47,5 +47,3 @@ c1.parar_filmar()
 
 # print(c1.filmando)
 # print(c2.filmando)
-
-
