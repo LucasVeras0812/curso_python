@@ -28,5 +28,3 @@ print(p1.sobrenome)
 
 print(p2.nome)
 print(p2.sobrenome)
-
-
