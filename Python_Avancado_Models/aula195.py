@@ -12,5 +12,3 @@ print(a + b)  # 6
 
 # Essa linha mostra o valor de `a` - `b`
 print(a - b)  # -2
-
-
