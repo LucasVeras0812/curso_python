@@ -51,4 +51,5 @@ print(terra)
 print(marte)
 
 print(terra.falar_nome())
+
 print(marte.falar_nome())
