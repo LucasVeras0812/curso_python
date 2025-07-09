@@ -17,3 +17,4 @@ def soma(x, y):
 
 dois_mais_quatro = soma(2, 4)
 print(dois_mais_quatro)
+
