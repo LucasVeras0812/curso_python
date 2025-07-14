@@ -41,3 +41,4 @@ if __name__ == '__main__':
     p1 = Pessoa()
     # print(fields(p1))
     print(p1)
+    
