@@ -35,3 +35,4 @@ print(as_espadas._field_defaults)
 
 for valor in as_espadas:
     print(valor)
+    
